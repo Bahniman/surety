@@ -2,6 +2,33 @@
 
 **The authorization and liability rail for AI agents.**
 
+### ▶ Try the live demo (no installation): https://bahniman.github.io/surety.html
+
+---
+
+## In plain English (no jargon)
+
+Imagine you give your AI assistant your credit card with a sticky note: *"up to ₹5,000, flights only, these two websites, and ask me first before spending over ₹2,500."* **Surety is that sticky note, made digital and unbreakable.** The assistant physically cannot go beyond what you signed, and every single thing it tries is written into a record that can't be secretly edited later — like a logbook where tearing out a page leaves an obvious hole.
+
+Why it's needed: AI assistants are starting to spend and act for people, but there's no accepted way to prove *who allowed what*, no spending limits that follow the assistant around, and no reliable record if something goes wrong. Surety fills that gap.
+
+<details>
+<summary><b>Jargon decoder</b> (click to expand)</summary>
+
+| Term | What it actually means |
+|---|---|
+| **Agent** | An AI assistant that *does things* (spends, books, posts), not just one that chats. |
+| **Delegation certificate** | The digital "sticky note": what the assistant may do, signed by you. |
+| **Guard / middleware** | Software that sits between the assistant and the outside world and checks every action against your note. |
+| **Escrow** | "Hold it and ask the human." The action pauses until you approve or deny it. |
+| **Audit log** | The logbook of everything attempted. *Tamper-evident* means editing any past entry visibly breaks it. |
+| **HMAC / Ed25519** | Math that produces a signature only the right key could have made — so forgery is detectable. |
+| **MCP** | A common "plug" standard AI assistants use to connect to tools; it's the natural place to insert Surety. |
+
+</details>
+
+---
+
 AI agents now spend money, book services, post publicly and file documents on humans' behalf. The human world solved delegated authority centuries ago (power of attorney, letters of credit, surety bonds). The agent world has none of it. Three questions nobody can answer today:
 
 - **Authority** — a merchant receives an order from an agent. Can anyone prove a human authorized it?

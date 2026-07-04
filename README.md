@@ -12,6 +12,17 @@ Imagine you give your AI assistant your credit card with a sticky note: *"up to 
 
 Why it's needed: AI assistants are starting to spend and act for people, but there's no accepted way to prove *who allowed what*, no spending limits that follow the assistant around, and no reliable record if something goes wrong. Surety fills that gap.
 
+## The business, concretely
+
+The buyer is an enterprise that *wants* agents doing procurement, travel, renewals — and whose legal/compliance team keeps blocking the rollout, because an agent with credentials is an unbounded power of attorney. The sequence:
+
+1. **The CFO signs a mandate** for each agent: monthly budget, permitted action types, an approved-vendor list, an ask-a-human threshold, an expiry. This is a document a CFO can actually approve — which is what unblocks the deployment.
+2. **Middleware enforces the mandate on every call.** In-scope actions execute and are logged; out-of-scope actions never happen; above-threshold actions pause for one-tap human approval.
+3. **The hash-chained log** answers the audit question — "show me everything the agent did, who authorized it, and prove the log wasn't edited" — as a query instead of a crisis.
+4. **The endgame is insurance.** Millions of certified actions are actuarial data. Agents get *bonded* the way contractors are bonded; bonded agents get accepted by counterparties where unbonded ones are refused. Whoever holds that claims history owns the category.
+
+**Revenue:** per-agent seat subscription (enforcement + log) → per-transaction fee on escrowed approvals → underwriting margin on agent bonds. Land with the audit log (it has value on day one, alone), expand to the mandate standard, end at insurance.
+
 <details>
 <summary><b>Jargon decoder</b> (click to expand)</summary>
 

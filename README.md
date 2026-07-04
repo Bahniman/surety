@@ -86,15 +86,26 @@ if decision.verdict == "ALLOW":
 
 Wrap your agent's tool dispatcher with `guard.request(...)` and you have enforcement plus an audit trail with ~10 lines of change. For MCP-based agents, the integration point is a proxy server that forwards in-scope calls and escrows the rest — see `docs/ARCHITECTURE.md`.
 
-## Status and roadmap
+## What's in v0.2 (still zero-dependency)
 
-This is a working concept prototype, deliberately zero-dependency.
+| Capability | Where | Notes |
+|---|---|---|
+| **Ed25519 signatures** | `surety/crypto.py` | Pure-Python RFC 8032 implementation, validated against the RFC test vectors in the test suite. Merchants verify mandates **offline** from the embedded public key — no API, no shared secret. HMAC fallback for closed-loop deployments. |
+| **Policy engine** | `surety/policy.py` | Ten checks in a fixed, documented order: signature → revocation → validity window → active hours → tool→category map → domain allow-list → rate limit → **category budgets** → total budget → approval threshold. Every decision carries its full evidence list. |
+| **Persistence** | `surety/store.py` | SQLite: certificate registry (with revocation), spend state per category, hash-chained audit log, escrow queue. Survives restarts; tested. |
+| **Escrow lifecycle** | `surety/guard.py` | Above-threshold actions park for approval; escrows **expire** (an approval that never comes is a denial); approvals **re-run the full policy** because conditions may have changed while parked — tested. |
+| **Kill switch** | `guard.revoke()` | Immediate, logged, and effective on the very next call — tested. |
+| **Merchant verifier** | `surety/verifier.py` | `verify_action(cert, tool=…, domain=…, amount=…)` answers "is this mandate authentic and is this action inside it" with zero network. |
+| **CLI** | `python -m surety` | `keygen`, `issue`, `inspect`, `verify`, `revoke`, `log`, `demo`. |
+| **Test suite** | `tests/` | 25 tests: RFC 8032 vectors, tamper detection, every policy rule, escrow expiry/recheck, SQLite persistence round-trip. `python -m unittest discover tests` |
+| **Threat model** | `docs/THREAT_MODEL.md` | Adversaries, attacks, mitigations, and the residual risks stated honestly — including the one deployment rule that matters (guard at the tool boundary, not inside the agent). |
 
-- [x] Certificate format v1 (HMAC-signed), guard, escrow, hash-chained log
-- [ ] Ed25519 keypairs so third parties verify certificates without the secret
-- [ ] MCP proxy server (drop-in for any MCP tool server)
-- [ ] Revocation registry + push revocation
-- [ ] Merchant-side verification endpoint ("was this order authorized?")
+## Roadmap
+
+- [ ] MCP proxy server (drop-in in front of any MCP tool server — the deployment that makes bypass impossible)
+- [ ] Guard-signed per-action receipts (merchant-verifiable proof of a specific action, not just the mandate)
+- [ ] External anchoring of the audit chain (RFC 3161 timestamping)
+- [ ] Key rotation + multi-signer mandates (two officers above a threshold)
 - [ ] Underwriting pilot: premium priced from logged action history
 
 ## Why this matters

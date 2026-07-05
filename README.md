@@ -2,6 +2,8 @@
 
 **The authorization and liability rail for AI agents.**
 
+> **Part of [Realium](https://realium-core.lovable.app)** — Surety is the *Authority* layer of the Realium platform: it governs every human and AI actor in the payment chain with signed, enforceable mandates, and makes the approval queue attributable. Pairs with the [GroundTruth](https://github.com/Bahniman/groundtruth) evidence/liquidity engine. Built for ReEnvision 5.0.
+
 ### ▶ Try the live demo (no installation): https://bahniman.github.io/surety.html
 
 ---
